@@ -1,0 +1,10 @@
+.aurora-container {
+ position: fixed;   /* Fixed so it stays behind content */
+  top: 0;
+  left: 0;
+  width: 100vw;      /* Full viewport width */
+  height: 100vh;     /* Full viewport height */
+  z-index: -1;       /* Behind all content */
+  pointer-events: none; /* Let clicks pass through */
+  background-color: black;
+}

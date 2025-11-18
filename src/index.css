@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+
+
+#Maincards::-webkit-scrollbar{
+    display: none;
+}
+#Maincomp::-webkit-scrollbar{
+    display: none;
+}
+#profilePhoto{
+     
+}
