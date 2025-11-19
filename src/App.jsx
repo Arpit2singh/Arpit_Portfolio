@@ -14,6 +14,7 @@ import About from './components/Pages/About'
 import NoftFoundPage from './components/Pages/NoftFoundPage'
 import SkillsUx from './components/Pages/SkillsUx'
 import Footer from './components/Pages/Footer'
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
  const cardsData =  [

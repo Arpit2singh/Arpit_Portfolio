@@ -17,6 +17,7 @@
     "@mui/x-charts": "^8.17.0",
     "@progress/kendo-react-grid": "^12.2.0",
     "@splinetool/react-spline": "^4.1.0",
+    "@vercel/analytics": "^1.5.0",
     "lucide-react": "^0.548.0",
     "ogl": "^1.0.11",
     "react": "^19.1.1",
@@ -27,9 +28,9 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.40.1",
+    "lightningcss-linux-arm64-musl": "^1.30.1",
     "lightningcss-linux-x64-gnu": "^1.30.1",
-    "lightningcss-linux-x64-musl": "^1.30.1",
-    "lightningcss-linux-arm64-musl": "^1.30.1"
+    "lightningcss-linux-x64-musl": "^1.30.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
