@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState , useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import Aurora from './components/Aurora'
 import './App.css'
@@ -16,7 +16,9 @@ import SkillsUx from './components/Pages/SkillsUx'
 import Footer from './components/Pages/Footer'
 import { Analytics } from "@vercel/analytics/react"
 
+
 function App() {
+
  const cardsData =  [
   {
     "status": "Primary Skill ✅",
@@ -223,6 +225,7 @@ const userData = [
 
     trackVisit();
   }, []);
+
   return (
 
     <div>
