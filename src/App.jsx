@@ -207,6 +207,22 @@ const userData = [
  
 
  console.log(cardsData)
+
+
+   useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        await fetch("https://portfolio-backend-wpgz.onrender.com/portfolio/", {
+          method: "GET",
+          credentials: "include",         // cookies set/receive
+        });
+      } catch (err) {
+        console.error("visit track failed", err);
+      }
+    };
+
+    trackVisit();
+  }, []);
   return (
 
     <div>
