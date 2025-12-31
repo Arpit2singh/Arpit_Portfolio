@@ -1,17 +1,26 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { CircleArrowOutDownRight , CircleArrowOutUpRight , SquareArrowDownRightIcon , CircleArrowRight } from 'lucide-react'
+import {animate, delay, motion, scale} from 'framer-motion' 
+
 const FeedbackForm = () => { 
   
  const [name, setName] = useState('')
  const [email, setEmail] = useState('')
  const [query, setQuery] = useState('')
+ const [size, setsize] = useState(100)
 
  const submitHandler =async(e)=>{
      e.preventDefault() ; 
      console.log(name) ; 
      console.log(email) ; 
      console.log(query) ; 
+      
+     const sizeChanger = ()=>{
+      setsize(250) 
+     }
+     sizeChanger() ;
+
     
     const res = await fetch(`https://portfolio-backend-wpgz.onrender.com/portfolio/Feedback/` ,
       {
@@ -29,9 +38,30 @@ const FeedbackForm = () => {
 }
 
 
-      setName('');
+  setName('');
   setEmail('');
   setQuery('');
+ }
+
+ const toggleVariant = {
+  starter : {
+    opacity : 0 , 
+    scale : 0.5 , 
+    x : [-300 , -100 , 0] , 
+    y : [-500 , -100 , 0]
+  }, 
+  animate : {
+    opacity : 1 , 
+    scale : 1 , 
+    x : 0 ,
+    y : 0 , 
+    transition : {
+      duration : 1.3 , 
+      delay : 0.8 , 
+      ease : 'anticipate' , 
+
+    }
+  }
  }
 
 
@@ -47,11 +77,10 @@ const FeedbackForm = () => {
           </div>
         </div>
         <div className=' flex flex-col gap-20  '>
-          <div className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><CircleArrowOutDownRight size={48} /></div>
-        
-        <div className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><SquareArrowDownRightIcon size={48}/></div>
-        <div className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><CircleArrowRight size={48} /></div>
-        <div className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><CircleArrowOutUpRight size={48}/></div>
+        <motion.div viewport={{once : true}} initial="starter" whileInView="animate" variants={toggleVariant} className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><CircleArrowOutDownRight size={48} /></motion.div>
+        <motion.div viewport={{once : true}} initial="starter" whileInView="animate" variants={toggleVariant} className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><SquareArrowDownRightIcon size={48}/></motion.div>
+        <motion.div viewport={{once : true}} initial="starter" whileInView="animate" variants={toggleVariant} className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><CircleArrowRight size={48} /></motion.div>
+        <motion.div viewport={{once : true}} initial="starter" whileInView="animate" variants={toggleVariant} className='bg-gradient-to-br from-red-200 via-blue-500 to-pink-400 rounded-4xl p-4 ' ><CircleArrowOutUpRight size={48}/></motion.div>
 
         </div>
         <div className=' h-[40vw] w-[55%]  relative overflow-hidden rounded-4xl '>
@@ -72,7 +101,11 @@ const FeedbackForm = () => {
               <textarea placeholder='hey! whats the Query..' value={query}  onChange={(e)=>(setQuery(e.target.value))} className='h-[200px] w-[300px] px-[20px] py-2 rounded-4xl bg-[#faf2f2] ' ></textarea>
             </div> 
             <div className=' flex justify-center mt-[60px]' >
-            <button className='h-[50px] w-[400px] text-white font-medium bg-red-300  rounded-4xl  'type='submit' >Submit</button>
+            <motion.button className='h-[50px]  text-white font-medium bg-red-300'type='submit' layout style={{
+              width : size , 
+              borderRadius : 23 , 
+              rotate : 360 
+            }}  >Submit</motion.button>
             </div>
           </form>
           </div>

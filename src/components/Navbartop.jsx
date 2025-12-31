@@ -1,9 +1,26 @@
 import React from 'react'
 import { Contact, Download, Home, Presentation, User, Wrench } from 'lucide-react'
-
+import {motion} from 'framer-motion'
 const Navbartop = () => {
+
+  const navVariants = {
+    hidden : {
+      opacity : 0 , 
+      y : -50 ,
+    } , 
+    animate : {
+      opacity : 1 ,
+      y : 0 , 
+      transition : {
+        duration : 0.5 , 
+        delay : 0.3
+      }
+    }
+
+  }
+
   return (
-    <div className="flex justify-center items-center p-2 mt-8 text-sm :md:text-lg w-[70%] ">
+    <motion.div variants={navVariants} initial="hidden" animate="animate" className="flex justify-center items-center p-2 mt-8 text-sm :md:text-lg w-[70%] fixed top-0 z-100  ">
       <nav className="flex justify-evenly items-center h-[70px] w-full max-w-6xl  rounded-4xl bg-white/20 backdrop-blur-md border border-white/30 shadow-lg cursor-pointer">
 
         <a href="#home" className="text-md xl:text-xl font-bold text-white flex items-center gap-1 hover:text-gray-200">
@@ -31,7 +48,7 @@ const Navbartop = () => {
         </a>
 
       </nav>
-    </div>
+    </motion.div>
   )
 }
 

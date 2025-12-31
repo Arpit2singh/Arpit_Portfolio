@@ -1,7 +1,27 @@
 import { PowerOffIcon, User } from 'lucide-react'
 import React from 'react'
-
+import {motion} from 'framer-motion'
 const About = () => {
+
+  const aboutVariants = {
+    hidden : {
+      opacity : 0 , 
+      x : -50 , 
+      y : 100 , 
+    } , 
+    animate : {
+      opacity : 1 , 
+      x : 0 , 
+      y : 0 , 
+      transition : {
+        duration : 0.5 , 
+        delay : 0.3 , 
+      } ,
+      
+    }
+
+  }
+
   return (
 
     <div className='relative   ' >
@@ -18,7 +38,7 @@ const About = () => {
      <div className='h-screen w-full  flex justify-between items-center p-3  ' >
   
      
-     <div className='h-full w-[60%]  p-2 px-[80px] flex flex-col justify-center items-center font-medium text-xl  '>
+     <motion.div viewport={{once : true}}  variants={aboutVariants} initial="hidden" whileInView="animate"   className='h-full w-[60%]  p-2 px-[80px] flex flex-col justify-center items-center font-medium text-xl  '>
       {/* <User size={50} color='purple' /> */}
      
       <p className='flex  leading-9 text-orange-300  font-["IBM_PLEX_MONO"] '>
@@ -28,10 +48,20 @@ I am a highly motivated and results-driven B.Tech (CSE-AIML) student from VIT Bh
 
 My core expertise lies in the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS) , complemented by proficiency in C/C++, Java, and Python. I am skilled in modern frontend practices, including Tailwind CSS , and have hands-on experience with deployment platforms like Vercel and Render.
       </p>
-     </div>
-     <div className='   h-[70%]  flex justify-center items-center w-[45%] overflow-hidden p-2 rounded-4xl '  >
+     </motion.div>
+     <motion.div  initial={{
+      opacity : 0 , 
+      scale : 0.7 
+     }}  whileInView={{
+      opacity : 1 , 
+      scale : 1 ,
+     }} 
+     transition={{
+      duration : 0.6 , 
+      delay : 0.2 
+     }} viewport={{once : true}} className='   h-[70%]  flex justify-center items-center w-[45%] overflow-hidden p-2 rounded-4xl '  >
     <img src='profile.jpg' id='profilePhoto' className=' h-[50%] w-[55%] object-cover h-full rounded-4xl bg-transparent  object-top   ' ></img>
-     </div>
+     </motion.div>
       
     </div>
     </div>

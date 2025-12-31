@@ -15,7 +15,7 @@ import NoftFoundPage from './components/Pages/NoftFoundPage'
 import SkillsUx from './components/Pages/SkillsUx'
 import Footer from './components/Pages/Footer'
 import { Analytics } from "@vercel/analytics/react"
-
+import {delay, motion} from 'framer-motion'
 
 function App() {
 
@@ -226,6 +226,22 @@ const userData = [
     trackVisit();
   }, []);
 
+  const cardsVariants = {
+    hidden : {
+      opacity : 0 , 
+      y : 70 
+    } , 
+    animate : (idx)=>({
+      opacity : 1 , 
+      y : 0 , 
+      transition : {
+        duration : 0.5 , 
+        delay : idx * 0.2 ,
+      }
+    })  
+
+  }
+
   return (
 
     <div>
@@ -263,7 +279,13 @@ const userData = [
       <div><SkillsUx/> </div>
        <div id="projects" className="bg-transparent h-screen w-screen flex flex-wrap justify-center overflow-auto">
       {cardsData.map((card, index) => (
-        <CardsUI key={index} data={card} />
+       <motion.span 
+        variants={cardsVariants}
+        initial="hidden"
+        whileInView="animate"
+        custom={index} 
+        viewport={{once : true}}
+       > <CardsUI key={index} data={card} /> </motion.span>
       ))}
     </div> 
      <div id="Achieve" > <Section1 userData={userData}  /></div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { ReactTyped } from "react-typed";
 import Splineanimation from './Splineanimation';
 import Navbartop from './Navbartop';
-
+import {motion} from 'framer-motion'
 const HeroSection = () => {
   return (
     <div className='flex flex-col justify-center items-center  '>
@@ -23,9 +23,9 @@ const HeroSection = () => {
          loop
            /> </div>
     </div>
-      <div className='h-screen w-[40%] flex justify-center items-center overflow-hidden ' >
+      <motion.div drag dragConstraints={{left : 100 , right : 100 , top : 100 , bottom : 100}}  className='h-screen w-[40%] flex justify-center items-center overflow-hidden ' >
       <Splineanimation/>
-      </div>
+      </motion.div>
     </div>
     </div>
 
