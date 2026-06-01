@@ -1,17 +1,12 @@
 import React from 'react'
 import { Briefcase, GraduationCap, Calendar, User, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 
 const About = ({ onPreview }) => {
-  const aboutVariants = {
-    hidden: { opacity: 0, y: 50 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' }
-    }
-  }
-
   const timelineExperience = [
     {
       role: "Full Stack Developer Intern",
@@ -58,40 +53,43 @@ const About = ({ onPreview }) => {
 
   return (
     <section id="about" className="py-20 px-6 md:px-16 w-full max-w-7xl mx-auto flex flex-col items-center gap-16 min-h-screen">
+
       {/* Intro Grid: Text + Photo */}
       <div className="flex flex-col lg:flex-row justify-between items-center w-full gap-12">
+
         {/* Bio Text */}
-        <motion.div 
-          variants={aboutVariants} 
-          initial="hidden" 
-          whileInView="animate" 
-          viewport={{ once: true }} 
-          className="w-full lg:w-[60%] flex flex-col justify-center items-start text-lg md:text-xl font-medium leading-relaxed"
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="w-full lg:w-[60%] flex flex-col justify-center items-start gap-4"
         >
-          <div className="flex items-center gap-2 mb-4 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-yellow-300">
-            <User size={14} /> About Me
-          </div>
-          <p className='text-orange-300 font-["IBM_PLEX_MONO"] leading-9'>
+          <Badge variant="outline" className="gap-1.5 border-white/20 text-yellow-300 bg-white/5 px-3 py-1 text-xs font-extrabold uppercase tracking-wider">
+            <User size={12} /> About Me
+          </Badge>
+
+          <p className='text-orange-300 font-mono leading-9 text-base md:text-lg'>
             I am a final-year B.Tech AIML undergraduate student from VIT Bhopal, specializing in full-stack web development and algorithm design. With a strong academic record (9.04 CGPA) and a passion for building user-centric, production-ready systems, I focus on creating high-quality web solutions.
           </p>
-          <p className="text-gray-300 mt-4 leading-relaxed">
+          <p className="text-muted-foreground mt-1 leading-relaxed text-sm md:text-base">
             My core expertise lies in the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS) and Vue.js, complemented by daily problem solving in C++ (463+ LeetCode problems, CodeChef 3-Star). I have completed 2 internships and 1 freelance project, delivering agile features, UI redesigns, and API optimizations.
           </p>
         </motion.div>
 
         {/* Profile Photo */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}  
-          whileInView={{ opacity: 1, scale: 1 }} 
-          transition={{ duration: 0.6 }} 
-          viewport={{ once: true }} 
-          className="w-full lg:w-[35%] flex justify-center items-center overflow-hidden p-2 rounded-4xl bg-white/5 border border-white/10 shadow-2xl h-[300px] md:h-[400px]"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="w-full lg:w-[35%] flex justify-center items-center overflow-hidden p-2 rounded-3xl bg-white/5 border border-white/10 shadow-2xl h-[300px] md:h-[400px]"
         >
-          <img 
-            src="profile.jpg" 
-            alt="Arpit Singh" 
-            id="profilePhoto" 
-            className="h-full w-full object-cover rounded-3xl object-top opacity-90 grayscale contrast-125 brightness-75 hover:grayscale-0 hover:brightness-100 hover:scale-[1.03] transition-all duration-700 ease-out cursor-pointer" 
+          <img
+            src="profile.jpg"
+            alt="Arpit Singh"
+            id="profilePhoto"
+            className="h-full w-full object-cover rounded-2xl object-top opacity-90 grayscale contrast-125 brightness-75 hover:grayscale-0 hover:brightness-100 hover:scale-[1.03] transition-all duration-700 ease-out cursor-pointer"
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800';
@@ -101,75 +99,83 @@ const About = ({ onPreview }) => {
       </div>
 
       {/* Timeline Grid: Experience & Education */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full mt-8">
-        
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full mt-4">
+
         {/* Experience Column */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white/10 border border-white/20 rounded-4xl p-6 md:p-8 backdrop-blur-md shadow-xl flex flex-col gap-6"
         >
-          <div className="flex items-center gap-3 border-b border-white/15 pb-3">
-            <Briefcase className="text-yellow-300" size={22} />
-            <h3 className="text-xl font-bold text-white">Experience</h3>
-          </div>
+          <Card className="bg-white/8 border-white/20 backdrop-blur-md shadow-xl rounded-2xl h-full">
+            <CardHeader className="flex flex-row items-center gap-3 pb-3">
+              <Briefcase className="text-yellow-300 shrink-0" size={22} />
+              <h3 className="text-xl font-bold text-white">Experience</h3>
+            </CardHeader>
+            <Separator className="bg-white/10 mb-4 mx-6 w-auto" />
+            <CardContent className="flex flex-col gap-6">
+              {timelineExperience.map((exp, idx) => (
+                <div key={idx} className="flex flex-col gap-2 relative pl-4 border-l-2 border-yellow-300/30">
+                  <div className="absolute h-3 w-3 rounded-full bg-yellow-300 -left-[7px] top-[6px] ring-2 ring-black/50" />
 
-          <div className="flex flex-col gap-6">
-            {timelineExperience.map((exp, idx) => (
-              <div key={idx} className="flex flex-col gap-2 relative pl-4 border-l border-yellow-300/30">
-                <div className="absolute h-3 w-3 rounded-full bg-yellow-300 -left-[6px] top-[6px]" />
-                <div className="flex justify-between items-start gap-4 flex-wrap">
-                  <h4 className="font-extrabold text-white text-base md:text-lg leading-tight">{exp.role}</h4>
-                  <span className="text-xs text-yellow-300 font-semibold bg-yellow-300/10 px-2 py-0.5 rounded border border-yellow-300/20 flex items-center gap-1">
-                    <Calendar size={12} /> {exp.duration}
-                  </span>
+                  <div className="flex justify-between items-start gap-4 flex-wrap">
+                    <h4 className="font-extrabold text-white text-sm md:text-base leading-tight">{exp.role}</h4>
+                    <Badge variant="outline" className="text-[10px] text-yellow-300 border-yellow-300/30 bg-yellow-300/5 gap-1 shrink-0">
+                      <Calendar size={10} /> {exp.duration}
+                    </Badge>
+                  </div>
+
+                  <span className="text-xs font-bold text-muted-foreground">{exp.org}</span>
+                  <p className="text-muted-foreground text-xs md:text-sm leading-relaxed">{exp.details}</p>
+
+                  {exp.link && onPreview && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onPreview(exp.link, exp.role, exp.org)}
+                      className="w-fit gap-1.5 text-xs text-yellow-300 border-yellow-300/30 bg-yellow-300/5 hover:bg-yellow-300/15 hover:border-yellow-300/50 rounded-full mt-1"
+                    >
+                      <ExternalLink size={11} /> Preview Certificate
+                    </Button>
+                  )}
                 </div>
-                <span className="text-xs font-bold text-gray-400">{exp.org}</span>
-                <p className="text-gray-300 text-xs md:text-sm mt-1 leading-relaxed">{exp.details}</p>
-                {exp.link && onPreview && (
-                  <button
-                    onClick={() => onPreview(exp.link, exp.role, exp.org)}
-                    className="flex items-center gap-1 text-xs text-yellow-300 border border-yellow-300/30 px-3 py-1.5 rounded-full hover:bg-yellow-300/10 active:scale-95 transition-all font-semibold shrink-0 w-fit mt-2 cursor-pointer"
-                  >
-                    <ExternalLink size={12} />
-                    Preview Certificate
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* Education Column */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white/10 border border-white/20 rounded-4xl p-6 md:p-8 backdrop-blur-md shadow-xl flex flex-col gap-6"
         >
-          <div className="flex items-center gap-3 border-b border-white/15 pb-3">
-            <GraduationCap className="text-purple-400" size={22} />
-            <h3 className="text-xl font-bold text-white">Education</h3>
-          </div>
+          <Card className="bg-white/8 border-white/20 backdrop-blur-md shadow-xl rounded-2xl h-full">
+            <CardHeader className="flex flex-row items-center gap-3 pb-3">
+              <GraduationCap className="text-purple-400 shrink-0" size={22} />
+              <h3 className="text-xl font-bold text-white">Education</h3>
+            </CardHeader>
+            <Separator className="bg-white/10 mb-4 mx-6 w-auto" />
+            <CardContent className="flex flex-col gap-6">
+              {timelineEducation.map((edu, idx) => (
+                <div key={idx} className="flex flex-col gap-2 relative pl-4 border-l-2 border-purple-400/30">
+                  <div className="absolute h-3 w-3 rounded-full bg-purple-400 -left-[7px] top-[6px] ring-2 ring-black/50" />
 
-          <div className="flex flex-col gap-6">
-            {timelineEducation.map((edu, idx) => (
-              <div key={idx} className="flex flex-col gap-2 relative pl-4 border-l border-purple-400/30">
-                <div className="absolute h-3 w-3 rounded-full bg-purple-400 -left-[6px] top-[6px]" />
-                <div className="flex justify-between items-start gap-4 flex-wrap">
-                  <h4 className="font-extrabold text-white text-base md:text-lg leading-tight">{edu.degree}</h4>
-                  <span className="text-xs text-purple-300 font-semibold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20 flex items-center gap-1">
-                    <Calendar size={12} /> {edu.duration}
-                  </span>
+                  <div className="flex justify-between items-start gap-4 flex-wrap">
+                    <h4 className="font-extrabold text-white text-sm md:text-base leading-tight">{edu.degree}</h4>
+                    <Badge variant="outline" className="text-[10px] text-purple-300 border-purple-400/30 bg-purple-400/5 gap-1 shrink-0">
+                      <Calendar size={10} /> {edu.duration}
+                    </Badge>
+                  </div>
+
+                  <span className="text-xs font-bold text-muted-foreground">{edu.org}</span>
+                  <p className="text-muted-foreground text-xs md:text-sm leading-relaxed">{edu.details}</p>
                 </div>
-                <span className="text-xs font-bold text-gray-400">{edu.org}</span>
-                <p className="text-gray-300 text-xs md:text-sm mt-1 leading-relaxed">{edu.details}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </CardContent>
+          </Card>
         </motion.div>
 
       </div>
