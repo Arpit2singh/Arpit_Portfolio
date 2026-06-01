@@ -1,23 +1,23 @@
-import { useState , useEffect } from 'react'
-import reactLogo from './assets/react.svg'
+import { useState, useEffect } from 'react'
 import Aurora from './components/Aurora'
 import './App.css'
-import CardsUI from './components/CardsUI'
-import Navbar from './components/Navbar'
-import Section1 from './components/section1/Section1'
 import FeedbackForm from './components/section2/FeedbackForm'
-import ThirdSection from './components/ThirdSection'
 import HeroSection from './components/HeroSection'
-import Navbartop from './components/Navbartop'
-import {Routes ,Route} from 'react-router'
+import { Routes, Route } from 'react-router'
 import About from './components/Pages/About'
+import ProjectsSection from './components/Pages/ProjectsSection'
+import SkillsSection from './components/Pages/SkillsSection'
+import AchievementsSection from './components/Pages/AchievementsSection'
+import BlogSection from './components/Pages/BlogSection'
+import Chatbot from './components/Chatbot'
 import NoftFoundPage from './components/Pages/NoftFoundPage'
-import SkillsUx from './components/Pages/SkillsUx'
 import Footer from './components/Pages/Footer'
 import { Analytics } from "@vercel/analytics/react"
-import {delay, motion} from 'framer-motion'
+import DocumentPreviewModal from './components/DocumentPreviewModal'
+import ScrollShowcase from './components/Pages/ScrollShowcase'
 
 function App() {
+  const [previewData, setPreviewData] = useState(null)
 
  const cardsData =  [
   {
@@ -34,29 +34,6 @@ function App() {
   {
     "status": "Programming Language",
     "company": "Java",
-    "posted": "1 year",
-    "title": "OOP & DSA",
-    "type": "Backend Language",
-    "level": "Intermediate",
-    "rate": "Used in practice",
-    "location": "Coursework" ,
-        "imgsrc" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAxlBMVEX////hHyHfAAANbrYAYLDhGhwAYrEAZbLgExYAabQAa7UAZ7PoaGnhNjkAX7AAZLL99fb76urgDxLgAgjwrq7pdnf65eX1+PsAWK1xncvi6vOjvduBp9DR3u0AXK/Y4+/mXV731dXsj5Dzubr0xMTkRUfvoKDt8vi90OVmlsg0fLxYjsS4zOP53d388fHwqKnrhYb2y8vob3AAVKycudlEg7/iKCrnYmPlVFbiMDEldrmPsNWvxeAATqqfu9rtlpbjP0HsiYlvn3hdAAAKjElEQVR4nO2daXeiShCGx2aHBBVMDFvc4opGYzQx6o0z//9P3V4AmwQSM5MZBPr5MsLBOeV7uouq6k7Xjx8MRjnpZW1Anjg8ZG1Bjrh7ytqCHDEDnaxNyA91sMjahPxQB5dZm5AfZgBkbUJ+uAPgPmsbcsPAZGKdzEYGtaxtyAs1UGE+61TmprzJ2obcIAjmIGsb8sIczsLrrI3ICdBjCf2sjcgLG7kC7rI2Iid04cB6ydqInNAAlQpg5ayTuINaGcusrcgHPaiVYGRtRT5Ac7DCCn8n0cVazbM2Ixc8Y62usjYjD9y/GEirize3O2yl5z0PQEBatWM3r7usGJ/AAU3BCnim7zV+gn49K4POmA3RivJX910AAFuZfs91xcBaHaI791fABM+sWvqeO+yuBGoc/QKGzIZVEgM8BWUhKmH1gFkBfbZikcAV1sqMKli1Nkqlu1madLYsiWuPwqsOMOCMZPWsJJZvXoMoOxTALEuTzpbFG60GWCsWXCXRw1oZ7fB6jrNDtliRRB1rJUQ71zpYK+avEtnIldhIEmC8ZbCqQyIdEjT8Cq8PJpKOxVeJLEiSE10j7eS3JRoG4RJlOUY0sLC3N1mdNBkSNkQV9ytc/GtkadEZA+KzsI8GGtsRkgKahsJxp+0TEovtNUoBzTtqC8iLgEcaC98TQavPws/oso2jLhZnpWDGfFYXXcIbLItOBKXNx/idxKhsC00askC//irYaVVMtvqVCPRaxzSa1BwqbMdRGkuTrjIIQqAWW9ZJ5EmgfNRdMLTYBq1k6oDeNrM0g6HF6n+JPAC6KvMU+PjDB98oMw1ApTikdlqRnz/4QqkZAKrU8EBWXFmGmMYBUAnhEhVqZObhUzlQf+U7Y1slP2FAbaCRWaD1CfNjsLARqDUMRhK9SvipD+P4LC3JA3fhGxEIySHp0G7+Q3POjeZwSF8GZawHkPBHA56lPN7ovGJ5/8Sys2I42vnc1h0lDZV+QvFv6nq2PRrrqqKvhwnfKS4jl7t5XO9TfvT8Mv1FaG8VThXtv2TX+eFZYpVXV6nep/Pxjr+JyqlSSVyXw4kKV3U+eOKTakNT5DjN+labzhSnKqkcJ01P/0aztXdXsWnnahynl2BouTyHUP3PXXTT9vY7a13VH9dvPJRX5bjq6C9ZeEbsblWiFr+1nJFnD6kB0mzadssb7Z2dO15vdV6sStUqr0/eRQpDOA+l/b80OyM8nxc1FSqmKpokirzOR0B5RCiQpCmKommaVNW58cpLmG52WcSCeI41EXksC9RFVVQM/EfRoIBIQZ7zrdW0leaWRhLHiWWKTKFHmu5XO9caj33MeGy57s7Zw7n5me8ew4Gp/RMr889Qh7Nwl7UVOcFXoMfL2oh/z2/FSg4MHG5b323KudMa/84bzYOT8LYEQVaMpn+7/o2vQa1UvkxvQoRdVdTJZw8N39Vv9jonbctVoPkReOnJNK3UAlMd19f4qhp3Thav8Ku/b9y54Yoo6ZFEnluP3d1qPx1hSK6j6jBkVXBipLvHwWVved0qQQL9HktXOJImwsgdBu4STAQlnOuoJH3kiJq6H44+95F3SzcDA2xLhFkil4KqSFWeGzvRNNzfrr9Q1ykg3gr5JUlSgvwQDjKYQ0tVUVfWrkPn0ENrX8r594Zma+SgFJEkiBZMD6deeSrsDAYjVwx3Zctcfh/r1s/ahNzAaZyUttTa9PasvkexRxmPxm/HO2qdp2l7I8f1FV6UNOk1YwvPCPs2SHfQSo4YrvGIUCUlCOyl1IFXPka8lpbtBGg3aulqomk0XV5Kzw41ntsxqSiae58PqzFHmWAWLYq+U/qsZzjd+ZPtmC4geI61VtBqvYiAXmsy3qVWBcuD56o3N/4+UYih3fI8r2V/WrGyyxDHNneKeDv5hpqUWHxH5uqaqn3HEtbwpuhVeE9SYNj0HRPIU5SCx14ejj/VP97b2NxPHv2Ca4X2zCIU8Q/2sNtTd3LzuC6+e3f1IJJSqvp6l77zKpGhN11ZE17Xb7ld9CJtFngFf7rlpWApR0V7+pS1hYrtrdg+yYjmMNgvafkTTRfFKkod/Vcq5PCKvQEXRaMcWjzFmyTD9Bnnz1WV224nkO12y2n4llglGwPRXsCqvrWcWLjQ8v8rw7KYPXLc8USCoyXYJKlGKQ4m/KyQSoS0Rtsl4/8FdPL6TUl2lBJsOMtWrjVeTzitytOIGjdZj/EkTdgvOdz7ushvix+WfkAz5KOH4OuQ4yWJnxTYt38HLejwJCiUJCpu2UaVvVqNTgofhi1UY+Z0tGVEEnl/VTalMLYz1v6TJr5Fdht5XqtlQ1qtlueNpvvXnQujBgn9GUEVRQ7Q07v7UgoVASeXteb0m4DbCB2BvT3aveWcNgpLQtMm42nvOK+vr46zx4PthNIWg8FgMBiMwnJfR2RtRU5oAwg7jOc0LuTYUeaMj2BifQEm1hdgYn0BJtYXYGJ9ASbWF3gn1vVDr9Hond7ivt5Bzz+UojFWTKzOoQ9C2sEp+Qt8RcX4T+ianK9837iInn/BZ71eddq94naqo8SaV4AZnJCPTgUG5Fhg0qqP6uUEwnZFnQ0AcvS8AJ6govMfi0MpxLpArXYME44Sg3TZIWqB+OHT+Oxu3JwBH6cvo+dNrJlsFv1sXEqsBvzZl1eDRq/RfaJahZE2YZEO+OhufEp8DT4vXxwavd6ANDE3i96WhxJrdnGcQLjdPenAgAfQscv2wIz6abbn0TGAszcd/opJWuiA7lcM/BHEzjVfyomdne6i2Vlg0sQisw1/fJbpQYMa8CT17ouPv2KSJtY1iDxVgx4092k9f/spIhaJE8TC+hhBKyc83YyE/6jMYtWPYpFOkIFAXSOlGV0pxao9NA6/FosrqqnAwDy2HMWaxFzTrDfoLhaLlxL0IY2LdX+4RDGmYRgy1eoKT0kDn6xci6IsQq8dPE9ChzKJ1SX5joyg+4Kh9kQktsI9IqOGmncCzneE6PkSiXWJ0z4gbC6Wywu6t0fXCF+BqL101MivC1DXcgD6z8vl8qlcYvVRbmjOyRyjHTxJprFGqBddGDjgLn7gKjhPv1wOHoVTQiXMAa9psXDEiWYfarwTdqarxcPQcomFmiEf+xnGxQqT6YN5bKyG3pFUg/dSiVWLqfNGrDDze6FmIWoATKlTKrFmx2QQERcrqPjV6X7JL7GRWC6xOvEIqh4XCz0mP89NShAUT5jHvmGlEgurE/34OvJglFg9XN37KVCDD6lzDLkWZllCh5/oE1UcrR2AEG9Wiz0aqs4c88IFdvqkc9jdk1mGoBS5aTI+FuT3brrdNjArshlvONcPm/1GbYpIH27zadG9kqG2b9c1ishGCJcjamQ0CTgvBJueGRNrTtrXRu4dcgGC51EhAiDtii4WctNBzXhmBithggnm8O0oy5RY1wBnjLGCQztcCTPARe3HiyEXXaxjQQFyqJD10gEUqbZptzfU2tZzGxP7cm9DFlhxyvNr094Uu6w8e1M6v591Zl9a/Zt1OqXZkUpeaaX5uX/EdZghMz6nIhwLxowPqT/hCl/RF92/hQYOrABrOH4KL/JxqwzjE2oyjD6LHRl9I9dU73EGgxHxP7Qh0pJ2T/FnAAAAAElFTkSuQmCC"
-  },
-  {
-    "status": "Web Basics 🌐",
-    "company": "HTML & CSS",
-    "posted": "1.5 years",
-    "title": "Structure & Styling",
-    "type": "Frontend",
-    "level": "Proficient",
-    "rate": "Used in every UI",
-    "location": "Frontend Projects" ,
-        "imgsrc" : "data:image/jpeg;base64,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"
-  },
-  {
-    "status": "Web Magic ✨",
-    "company": "JavaScript",
-    "posted": "1.5 years",
     "title": "Frontend & Backend Logic",
     "type": "Fullstack",
     "level": "Intermediate",
@@ -213,8 +190,12 @@ const userData = [
 
    useEffect(() => {
     const trackVisit = async () => {
+      const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? "http://localhost:3000"
+        : "https://portfolio-backend-wpgz.onrender.com"
+
       try {
-        await fetch("https://portfolio-backend-wpgz.onrender.com/portfolio/", {
+        await fetch(`${API_BASE}/portfolio/`, {
           method: "GET",
           credentials: "include",         // cookies set/receive
         });
@@ -274,32 +255,24 @@ const userData = [
       <Route path='*' element={<NoftFoundPage/>} />
       <Route path='/' element={
         <>
-      <div id="home"  ><HeroSection /></div>
-      <div id="about" > <About /></div>
-      <div><SkillsUx/> </div>
-       <div id="projects" className="bg-transparent h-screen w-screen flex flex-wrap justify-center overflow-auto">
-      {cardsData.map((card, index) => (
-       <motion.span 
-        variants={cardsVariants}
-        initial="hidden"
-        whileInView="animate"
-        custom={index} 
-        viewport={{once : true}}
-       > <CardsUI key={index} data={card} /> </motion.span>
-      ))}
-    </div> 
-     <div id="Achieve" > <Section1 userData={userData}  /></div>
-      <div id="skills">  <ThirdSection  /></div> 
-     
-      <div id="contact" >    <FeedbackForm  /></div>
-      <div><Footer/></div>
-  
-
-   
+          <div id="home"><HeroSection /></div>
+          <ScrollShowcase />
+          <div id="about"><About onPreview={(url, title, issuer) => setPreviewData({ url, title, issuer })} /></div>
+          <ProjectsSection />
+          <SkillsSection cardsData={cardsData} />
+          <AchievementsSection onPreview={(url, title, issuer) => setPreviewData({ url, title, issuer })} />
+          <BlogSection />
+          <div id="contact"><FeedbackForm /></div>
+          <Footer />
+          <Chatbot />
         </>
       } />
      </Routes>
      
+     <DocumentPreviewModal 
+        data={previewData} 
+        onClose={() => setPreviewData(null)} 
+      />
     
  <Analytics/>
 
